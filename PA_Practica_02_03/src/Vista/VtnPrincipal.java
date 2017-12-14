@@ -243,48 +243,6 @@ public class VtnPrincipal extends JFrame implements ActionListener {
         barraMenu.add(menu5);
         //Fin Menu 5
 
-        //Inicio Menu 6
-        JMenu menu6 = new JMenu("Programa F");
-        JMenu sub1Menu6 = new JMenu("Crear");
-
-        JMenuItem item1Submenu1Menu6 = new JMenuItem("Crear Medico");
-        item1Submenu1Menu6.addActionListener(this);
-        item1Submenu1Menu6.setActionCommand("item1Submenu1Menu6"); //caso 31
-        sub1Menu6.add(item1Submenu1Menu6);
-
-        JMenuItem item2Submenu1Menu6 = new JMenuItem("Crear Paciente");
-        item2Submenu1Menu6.addActionListener(this);
-        item2Submenu1Menu6.setActionCommand("item2Submenu1Menu6"); //caso 32
-        sub1Menu6.add(item2Submenu1Menu6);
-
-        JMenuItem item3Submenu1Menu6 = new JMenuItem("Crear Consulta");
-        item3Submenu1Menu6.addActionListener(this);
-        item3Submenu1Menu6.setActionCommand("item3Submenu1Menu6"); //caso 33
-        sub1Menu6.add(item3Submenu1Menu6);
-
-        menu6.add(sub1Menu6);
-
-        JMenu sub2Menu6 = new JMenu("Listar");
-
-        JMenuItem item1Submenu2Menu6 = new JMenuItem("Listar Doctores");
-        item1Submenu2Menu6.addActionListener(this);
-        item1Submenu2Menu6.setActionCommand("item1Submenu2Menu6"); //caso 34
-        sub2Menu6.add(item1Submenu2Menu6);
-
-        JMenuItem item2Submenu2Menu6 = new JMenuItem("Listar Pacientes");
-        item2Submenu2Menu6.addActionListener(this);
-        item2Submenu2Menu6.setActionCommand("item2Submenu2Menu6"); //caso 35
-        sub2Menu6.add(item2Submenu2Menu6);
-
-        JMenuItem item3Submenu2Menu6 = new JMenuItem("Listar Consultas");
-        item3Submenu2Menu6.addActionListener(this);
-        item3Submenu2Menu6.setActionCommand("item3Submenu2Menu6"); //caso 36
-        sub2Menu6.add(item3Submenu2Menu6);
-
-        menu6.add(sub2Menu6);
-        barraMenu.add(menu6);
-        //Fin Menu 6
-
         //Inicio Menu Opciones
         JMenu menuOpciones = new JMenu("Opciones");
         JMenuItem itemMenuOpcioneSalir = new JMenuItem("Salir");
@@ -413,28 +371,7 @@ public class VtnPrincipal extends JFrame implements ActionListener {
                 listarInscripciones();
                 break;
 
-            //Inicio crear Menu 6 Programa 6
-            case "item1Submenu1Menu6": //caso 31
-                crearMedico();
-                break;
-            case "item2Submenu1Menu6": //caso 32
-                crearPaciente();
-                break;
-            case "item3Submenu1Menu6": //caso 33
-                crearConsulta();
-                break;
-
-            //Inicio listar Menu 6 Programa 6
-            case "item1Submenu2Menu6": //caso 34
-                listrMedicos();
-                break;
-            case "item2Submenu2Menu6": //caso 35
-                listarPacientes();
-                break;
-            case "item3Submenu2Menu6": //caso 36
-                listarConsulta();
-                break;
-
+            
             //Inicio Menu Opciones   
             case "itemMenuOpcioneSalir": //caso 37
                 salir();
@@ -606,72 +543,9 @@ public class VtnPrincipal extends JFrame implements ActionListener {
         }
     }
     
-    private void crearMedico() {
-        VtnCrear_F_Medico vcm = new VtnCrear_F_Medico();
-        try {
-            vcm.setVisible(true);
-            vcm.setSelected(true);
-            escritorio.add(vcm);
-
-        } catch (Exception e) {
-            e.printStackTrace();
-            JOptionPane.showMessageDialog(this, "Error: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
-        }
-    }
     
-    private void listrMedicos(){
-        Vista.VtnListar_F_Medico vlm=new Vista.VtnListar_F_Medico();
-        try {
-            vlm.setVisible(true);
-            vlm.setSelected(true);
-            escritorio.add(vlm);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-    private void crearPaciente() {
-        VtnCrear_F_Paciente cp = new VtnCrear_F_Paciente();
-        try {
-            cp.setVisible(true);
-            cp.setSelected(true);
-            escritorio.add(cp);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
     
-    private void listarPacientes() {
-        VtnListar_F_Paciente vlp = new VtnListar_F_Paciente();
-        try {
-            vlp.setVisible(true);
-            vlp.setSelected(true);
-            escritorio.add(vlp);
-        } catch (Exception e) {
-        }
-    }
-
-    private void crearConsulta() {
-        VtnCrear_F_Consulta cc = new VtnCrear_F_Consulta();
-        try {
-            cc.setVisible(true);
-            cc.setSelected(true);
-            escritorio.add(cc);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-    
-    private void listarConsulta() {
-        VtnListar_F_Consulta vlc = new VtnListar_F_Consulta();
-        try {
-            vlc.setVisible(true);
-            vlc.setSelected(true);
-            escritorio.add(vlc);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
+   
 
     private void crearJugador() {
         VtnCrear_E_Jugador vcj = new VtnCrear_E_Jugador();

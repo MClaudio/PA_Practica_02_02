@@ -6,7 +6,6 @@
 package Vista;
 
 import Controlador.GD_Programa_C;
-import Controlador.GD_Programa_F;
 import Modelo.Programa_C.Empleado;
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;

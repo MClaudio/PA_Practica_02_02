@@ -3,7 +3,6 @@ package Controlador;
 import Modelo.Programa_A.Articulo;
 import Modelo.Programa_A.Autor;
 import Modelo.Programa_A.Revista;
-import Modelo.Programa_F.Doctor;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;

@@ -1,3 +1,0 @@
-Maria|Lombaida|0123256452|Dermatologa|
-Juan|Perez|0123652120|Medico General|
-Jaime|Pesantez|0120459820|Odontologo|

@@ -6,9 +6,9 @@
 package Vista;
 
 import Controlador.GD_Programa_C;
-import Controlador.GD_Programa_F;
+
 import Modelo.Programa_C.Departamento;
-import Modelo.Programa_F.Doctor;
+
 import java.awt.BorderLayout;
 import java.util.List;
 import javax.swing.JInternalFrame;

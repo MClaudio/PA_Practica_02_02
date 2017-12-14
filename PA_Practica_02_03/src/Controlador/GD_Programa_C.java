@@ -8,7 +8,6 @@ package Controlador;
 import Modelo.Programa_C.Departamento;
 import Modelo.Programa_C.Empleado;
 import Modelo.Programa_C.Empresa;
-import Modelo.Programa_F.Doctor;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
