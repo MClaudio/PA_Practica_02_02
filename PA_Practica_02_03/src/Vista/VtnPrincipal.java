@@ -159,48 +159,6 @@ public class VtnPrincipal extends JFrame implements ActionListener {
         barraMenu.add(menu3);
         //Fin Menu 3
 
-        //Inicio Menu 4
-        JMenu menu4 = new JMenu("Competencias");
-        JMenu sub1Menu4 = new JMenu("Crear");
-
-        JMenuItem item1Submenu1Menu4 = new JMenuItem("Ingresar Resultados");
-        item1Submenu1Menu4.addActionListener(this);
-        item1Submenu1Menu4.setActionCommand("item1Submenu1Menu4"); //caso 19
-        sub1Menu4.add(item1Submenu1Menu4);
-
-        JMenuItem item2Submenu1Menu4 = new JMenuItem("Ingresar Atletas");
-        item2Submenu1Menu4.addActionListener(this);
-        item2Submenu1Menu4.setActionCommand("item2Submenu1Menu4"); //caso 20
-        sub1Menu4.add(item2Submenu1Menu4);
-
-        JMenuItem item3Submenu1Menu4 = new JMenuItem("Ingresar Competencias");
-        item3Submenu1Menu4.addActionListener(this);
-        item3Submenu1Menu4.setActionCommand("item3Submenu1Menu4"); //caso 21
-        sub1Menu4.add(item3Submenu1Menu4);
-
-        menu4.add(sub1Menu4);
-
-        JMenu sub2Menu4 = new JMenu("Listar");
-
-        JMenuItem item1Submenu2Menu4 = new JMenuItem("Lista Resultados");
-        item1Submenu2Menu4.addActionListener(this);
-        item1Submenu2Menu4.setActionCommand("item1Submenu2Menu4"); //caso 22
-        sub2Menu4.add(item1Submenu2Menu4);
-
-        JMenuItem item2Submenu2Menu4 = new JMenuItem("Lista Atletas");
-        item2Submenu2Menu4.addActionListener(this);
-        item2Submenu2Menu4.setActionCommand("item2Submenu2Menu4"); //caso 23
-        sub2Menu4.add(item2Submenu2Menu4);
-
-        JMenuItem item3Submenu2Menu4 = new JMenuItem("Lista Competencias");
-        item3Submenu2Menu4.addActionListener(this);
-        item3Submenu2Menu4.setActionCommand("item3Submenu2Menu4"); //caso 24
-        sub2Menu4.add(item3Submenu2Menu4);
-
-        menu4.add(sub2Menu4);
-        barraMenu.add(menu4);
-        //Fin Menu 4
-
         //Inicio Menu 5
         JMenu menu5 = new JMenu("Programa E");
         JMenu sub1Menu5 = new JMenu("Crear");
@@ -327,28 +285,7 @@ public class VtnPrincipal extends JFrame implements ActionListener {
                  listaEmpresas();
                 break;
 
-            //Inicio crear Menu 4 Programa 4
-            case "item1Submenu1Menu4": //caso 19
-                crearResultado();
-                break;
-            case "item2Submenu1Menu4": //caso 20
-                crearAtleta();
-                break;
-            case "item3Submenu1Menu4": //caso 21
-                crearCompetencia();
-                break;
-
-            //Inicio listar Menu 4 Programa 4
-            case "item1Submenu2Menu4": //caso 22
-                listaResultado();
-                break;
-            case "item2Submenu2Menu4": //caso 23
-                 listaAtleta();
-                break;
-            case "item3Submenu2Menu4": //caso 24
-                 listaCompetencia();
-                break;
-
+            
             //Inicio crear Menu 5 Programa 5
             case "item1Submenu1Menu5": //caso 25
                 crearEquipo();
@@ -680,79 +617,6 @@ public class VtnPrincipal extends JFrame implements ActionListener {
             e.printStackTrace();
         }  
           
-    }
-
-    
-
-     
-     
-
-    private void crearAtleta() {
-        VntCrear_D_Atleta vca = new VntCrear_D_Atleta();
-        try {
-            vca.setVisible(true);
-            vca.setSelected(true);
-            escritorio.add(vca);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }      
-    }
-
-    private void crearResultado() {
-         VntCrear_D_Resultado vcr = new VntCrear_D_Resultado();
-        try {
-            vcr.setVisible(true);
-            vcr.setSelected(true);
-            escritorio.add(vcr);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }      
-    }
-
-    private void crearCompetencia() {
-        VntCrear_D_Competencia vcc = new VntCrear_D_Competencia();
-        try {
-            vcc.setVisible(true);
-            vcc.setSelected(true);
-            escritorio.add(vcc);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }  
-    }
-    
-      private void listaResultado() {
-        Vista.VntListar_D_Resultado vlr = new VntListar_D_Resultado();
-        try {
-            vlr.setVisible(true);
-            vlr.setSelected(true);
-            escritorio.add(vlr);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }  
-          
-    }
-
-    private void listaAtleta() {
-         Vista.VntListar_D_Atleta vla = new VntListar_D_Atleta();
-        try {
-            vla.setVisible(true);
-            vla.setSelected(true);
-            escritorio.add(vla);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }  
-          
-    }
-
-    private void listaCompetencia() {
-         Vista.VntListar_D_Competencia vlc = new VntListar_D_Competencia();
-        try {
-            vlc.setVisible(true);
-            vlc.setSelected(true);
-            escritorio.add(vlc);
-        } catch (Exception e) {
-            e.printStackTrace();
-        } 
     }
 
 }
