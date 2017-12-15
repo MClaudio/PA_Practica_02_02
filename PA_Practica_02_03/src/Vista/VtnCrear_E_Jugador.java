@@ -119,7 +119,7 @@ public class VtnCrear_E_Jugador extends JInternalFrame implements ActionListener
     
     public void btnGuardar(){
         try {
-            gdE = new GD_Programa_E("src/Archivos/Programa_E/Jugadores.txt");
+            gdE = new GD_Programa_E("src/Archivos/Programa_E/Jugadores.dat");
             if (txtNombre.getText().equals("") || txtApellido.getText().equals("") || txtCedula.getText().equals("") || txtEdad.getText().equals("") || txtNombreDeportivo.getText().equals("")) {
                 throw new Exception("Debe llenar todos los campos.");
             }
@@ -136,7 +136,7 @@ public class VtnCrear_E_Jugador extends JInternalFrame implements ActionListener
             if (equipos.getSelectedItem()==null) {
                 throw new Exception("La lista de equipos esta vacia deve crear un equipo.");
             }
-            gdE.verificarDuplicados(txtCedula.getText());
+            //gdE.verificarDuplicados(txtCedula.getText());
 
             gdE.creaJugador(txtNombre.getText(), txtApellido.getText(), txtCedula.getText(), Integer.parseInt(txtEdad.getText()), txtNombreDeportivo.getText(), Integer.parseInt(txtNumCamiseta.getText()), (String)equipos.getSelectedItem());
             
@@ -158,7 +158,7 @@ public class VtnCrear_E_Jugador extends JInternalFrame implements ActionListener
     public void initComboBox(){
         try {
             gdE = new GD_Programa_E();
-            List<Equipo> equipo=gdE.listarEquipo("src/Archivos/Programa_E/Equipos.txt");
+            List<Equipo> equipo=gdE.listarEquipo("src/Archivos/Programa_E/Equipos.dat");
             String[] datos=new String[equipo.size()];
             for (int i = 0; i < equipo.size(); i++) {
                 Equipo get = equipo.get(i);
@@ -174,8 +174,8 @@ public class VtnCrear_E_Jugador extends JInternalFrame implements ActionListener
     private void agregarJugador(){
         try {
             gdE = new GD_Programa_E();
-            gdE.listarEquipo("src/Archivos/Programa_E/Equipos.txt");
-            List<Equipo>equipos=gdE.agregaJugador("src/Archivos/Programa_E/Jugadores.txt");
+            gdE.listarEquipo("src/Archivos/Programa_E/Equipos.dat");
+            List<Equipo>equipos=gdE.agregaJugador("src/Archivos/Programa_E/Jugadores.dat");
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
             e.printStackTrace();

@@ -45,5 +45,4 @@ public class Equipo {
         jugadores.add(jugador);
     }
     
-    
 }

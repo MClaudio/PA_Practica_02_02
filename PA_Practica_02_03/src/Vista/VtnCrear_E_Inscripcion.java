@@ -90,7 +90,7 @@ public class VtnCrear_E_Inscripcion extends JInternalFrame implements ActionList
     
     public void btnGuardar(){
         try {
-            gdE=new GD_Programa_E("src/Archivos/Programa_E/Inscripciones.txt");
+            gdE=new GD_Programa_E("src/Archivos/Programa_E/Inscripciones.dat");
             if (txtFecha.getText().equals("") || txtNumero.getText().equals("") || txtTorneo.getText().equals("")) {
                 throw new Exception("Debe llenar todos los campos.");
             }
@@ -100,7 +100,7 @@ public class VtnCrear_E_Inscripcion extends JInternalFrame implements ActionList
             if (equipos.getSelectedItem()==null) {
                 throw new Exception("La lista de equipos esta vacia deve crear un equipo.");
             }
-            gdE.verificarDuplicados(txtTorneo.getText());
+            //gdE.verificarDuplicados(txtTorneo.getText());
             gdE.creaInscripcion(txtFecha.getText(), Integer.parseInt(txtNumero.getText()), txtTorneo.getText(), (String)equipos.getSelectedItem());
             JOptionPane.showMessageDialog(this, "Datos Guardados con exito...", "Guardar", JOptionPane.INFORMATION_MESSAGE);
             
@@ -116,7 +116,7 @@ public class VtnCrear_E_Inscripcion extends JInternalFrame implements ActionList
     public void initComboBox(){
         try {
             gdE = new GD_Programa_E();
-            List<Equipo> equipo=gdE.listarEquipo("src/Archivos/Programa_E/Equipos.txt");
+            List<Equipo> equipo=gdE.listarEquipo("src/Archivos/Programa_E/Equipos.dat");
             String[] datos=new String[equipo.size()];
             for (int i = 0; i < equipo.size(); i++) {
                 Equipo get = equipo.get(i);

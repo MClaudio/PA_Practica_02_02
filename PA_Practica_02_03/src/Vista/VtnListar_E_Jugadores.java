@@ -71,7 +71,7 @@ public class VtnListar_E_Jugadores extends JInternalFrame implements ActionListe
     public void initComboBox() {
         try {
             gdE = new GD_Programa_E();
-            List<Equipo> equipo = gdE.listarEquipo("src/Archivos/Programa_E/Equipos.txt");
+            List<Equipo> equipo = gdE.listarEquipo("src/Archivos/Programa_E/Equipos.dat");
             String[] datos = new String[equipo.size()];
             for (int i = 0; i < equipo.size(); i++) {
                 Equipo get = equipo.get(i);
@@ -86,16 +86,29 @@ public class VtnListar_E_Jugadores extends JInternalFrame implements ActionListe
 
     private void btnBuscar() {
         try {
-            gdE.listarEquipo("src/Archivos/Programa_E/Equipos.txt");
-            List<Equipo> equipos = gdE.agregaJugador("src/Archivos/Programa_E/Jugadores.txt");
-            for (int i = 0; i < equipos.size(); i++) {
-                Equipo get = equipos.get(i);
-                if (this.equipos.getSelectedItem().equals(get.getNombre())) {
-                    tlbJugadores.setModel(new VtnListar_E_JugadoresModel(get.getJugadores()));
+            gdE.listarEquipo("src/Archivos/Programa_E/Equipos.dat");
+            List<Equipo> equipos = gdE.agregaJugador("src/Archivos/Programa_E/Jugadores.dat");
+            if (equipos != null) {
+                for (int i = 0; i < equipos.size(); i++) {
+                    Equipo get = equipos.get(i);
+                    //System.out.println("Equipo: " + get.getNombre());
+
+                    if (this.equipos.getSelectedItem().equals(get.getNombre())) {
+                        
+                        for (int j = 0; j < get.getJugadores().size(); j++) {
+                            Jugador get1 = get.getJugadores().get(j);
+                            System.out.println("\tJugador: " + get1.getNombre());
+                        }
+                        
+                        tlbJugadores.setModel(new VtnListar_E_JugadoresModel(get.getJugadores()));
+                    }
                 }
             }
+            else {
+                throw new Exception("Lista Vacia");
+            }
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(this, "Lista Vacia", "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }
 
     }

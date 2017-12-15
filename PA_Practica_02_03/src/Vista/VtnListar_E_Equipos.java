@@ -40,7 +40,7 @@ public class VtnListar_E_Equipos extends JInternalFrame {
         try {
             gdE = new GD_Programa_E();
             String[] cabecera = {"#", "Nombre", "Categoria"};
-            List<Equipo> equipos = gdE.listarEquipo("src/Archivos/Programa_E/Equipos.txt");
+            List<Equipo> equipos = gdE.listarEquipo("src/Archivos/Programa_E/Equipos.dat");
             String[][] datos = new String[equipos.size()][cabecera.length];
             for (int i = 0; i < equipos.size(); i++) {
                 Equipo get = equipos.get(i);
