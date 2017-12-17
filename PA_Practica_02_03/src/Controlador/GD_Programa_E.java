@@ -148,7 +148,6 @@ public class GD_Programa_E {
 
     public void creaInscripcion(String fecha, int numero, String torneo, String nombreEquipo) throws Exception {
         if (archivo.exists()) {
-            Inscripcion inscripcion = new Inscripcion();
             FileOutputStream file = new FileOutputStream(archivo, true);
             DataOutputStream escritura = new DataOutputStream(file);
             try {
@@ -156,12 +155,6 @@ public class GD_Programa_E {
                 escritura.writeInt(numero);
                 escritura.writeUTF(torneo);
                 escritura.writeUTF(nombreEquipo);
-                //
-                inscripcion.setFecha(fecha);
-                inscripcion.setNumero(numero);
-                inscripcion.setTorneo(torneo);
-
-                inscripciones.add(inscripcion);
 
             } catch (Exception e) {
                 escritura.close();
@@ -173,8 +166,8 @@ public class GD_Programa_E {
     }
 
     public List<Inscripcion> listarInscripciones(String pathname) throws Exception {
-        listarEquipo("src/Archivos/Programa_E/Equipos.dat");
-        List<Equipo> aux = agregaJugador("src/Archivos/Programa_E/Jugadores.dat");
+        
+        List<Equipo> aux;
         archivo = new File(pathname);
 
         if (archivo.exists()) {
@@ -186,9 +179,12 @@ public class GD_Programa_E {
                     inscripcion.setFecha(lectura.readUTF());
                     inscripcion.setNumero(lectura.readInt());
                     inscripcion.setTorneo(lectura.readUTF());
+                    String nom=lectura.readUTF();
+                    listarEquipo("src/Archivos/Programa_E/Equipos.dat");
+                    aux = agregaJugador("src/Archivos/Programa_E/Jugadores.dat");
                     for (int j = 0; j < aux.size(); j++) {
                         Equipo get = aux.get(j);
-                        if (get.getNombre().equals(lectura.readUTF())) {
+                        if (get.getNombre().equals(nom)) {
                             inscripcion.setEquipo(get);
                         }
                     }
@@ -235,6 +231,24 @@ public class GD_Programa_E {
                 lectura.readInt();
                 lectura.readUTF();
                 lectura.readInt();
+                lectura.readUTF();
+            }
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
+    public boolean validaDupInscripcion(String torneo) throws FileNotFoundException {
+        FileInputStream file = new FileInputStream(archivo);
+        DataInputStream lectura = new DataInputStream(file);
+        try {
+            while (true) {
+                lectura.readUTF();
+                lectura.readInt();
+                if (lectura.readUTF().equals(torneo)) {
+                    System.out.println("Iguales");
+                    return true;
+                }
                 lectura.readUTF();
             }
         } catch (Exception e) {

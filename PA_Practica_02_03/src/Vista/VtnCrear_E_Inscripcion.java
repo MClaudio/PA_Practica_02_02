@@ -100,7 +100,9 @@ public class VtnCrear_E_Inscripcion extends JInternalFrame implements ActionList
             if (equipos.getSelectedItem()==null) {
                 throw new Exception("La lista de equipos esta vacia deve crear un equipo.");
             }
-            //gdE.verificarDuplicados(txtTorneo.getText());
+            if (gdE.validaDupInscripcion(txtTorneo.getText())) {
+                throw new Exception("El nombre del torneo ya existe..");
+            }
             gdE.creaInscripcion(txtFecha.getText(), Integer.parseInt(txtNumero.getText()), txtTorneo.getText(), (String)equipos.getSelectedItem());
             JOptionPane.showMessageDialog(this, "Datos Guardados con exito...", "Guardar", JOptionPane.INFORMATION_MESSAGE);
             

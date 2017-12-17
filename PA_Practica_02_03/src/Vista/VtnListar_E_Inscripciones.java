@@ -41,12 +41,7 @@ public class VtnListar_E_Inscripciones extends JInternalFrame {
             gdE = new GD_Programa_E();
             String[] cabecera = {"#", "Fecha", "Torneo", "Equipo"};
             List<Inscripcion> inscripciones = gdE.listarInscripciones("src/Archivos/Programa_E/Inscripciones.dat");
-            
-            for (int i = 0; i < inscripciones.size(); i++) {
-                Inscripcion get = inscripciones.get(i);
-                System.out.println("Dato: "+get.getEquipo().getNombre());
-            }
-            
+
             String[][] datos = new String[inscripciones.size()][cabecera.length];
             for (int i = 0; i < inscripciones.size(); i++) {
                 Inscripcion get = inscripciones.get(i);
