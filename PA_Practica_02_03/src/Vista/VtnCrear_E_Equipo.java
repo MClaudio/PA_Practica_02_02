@@ -69,13 +69,17 @@ public class VtnCrear_E_Equipo extends JInternalFrame implements ActionListener{
     
     public void btnGuardar(){
         try {
-            gdE=new GD_Programa_E();
+            
             gdE = new GD_Programa_E("src/Archivos/Programa_E/Equipos.dat");
             
             if (txtNombre.getText().equals("") || txtCategoria.getText().equals("")) {
                 throw new Exception("Debe llenar todos los campos.");
             }
             //gdE.verificarDuplicados(txtNombre.getText());
+            if (gdE.validarDupEquipo(txtNombre.getText())) {
+                throw new Exception("El equipo ya existe..");
+            }
+                
             
             gdE.crearEquipo(txtNombre.getText(), txtCategoria.getText());
             JOptionPane.showMessageDialog(this, "Datos Guardados con exito...", "Guardar", JOptionPane.INFORMATION_MESSAGE);
@@ -84,6 +88,7 @@ public class VtnCrear_E_Equipo extends JInternalFrame implements ActionListener{
             txtCategoria.setText("");
             
         } catch (Exception e) {
+            e.printStackTrace();
             JOptionPane.showMessageDialog(this, e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }
     }

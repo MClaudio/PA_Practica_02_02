@@ -216,7 +216,7 @@ public class VtnPrincipal extends JFrame implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        System.out.println(e.getActionCommand());
+        //System.out.println(e.getActionCommand());
 
         switch (e.getActionCommand()) {
             //Inicio crear Menu 1 Programa 1

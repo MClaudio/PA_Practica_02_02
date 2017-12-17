@@ -11,6 +11,7 @@ import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.FileWriter;
@@ -45,11 +46,6 @@ public class GD_Programa_E {
 
                 escritura.writeUTF(nombre);
                 escritura.writeUTF(categoria);
-                // Memoria
-                /*Equipo equipo = new Equipo();
-                equipo.setNombre(nombre);
-                equipo.setCategoria(categoria);
-                equipos.add(equipo);*/
 
             } catch (Exception e) {
                 e.printStackTrace();
@@ -70,14 +66,14 @@ public class GD_Programa_E {
             FileInputStream file = new FileInputStream(archivo);
             DataInputStream lectura = new DataInputStream(file);
             try {
-                //if (equipos.get(0) != null) {
+
                 while (true) {
                     Equipo equipo = new Equipo();
                     equipo.setNombre(lectura.readUTF());
                     equipo.setCategoria(lectura.readUTF());
                     equipos.add(equipo);
                 }
-                //}
+
             } catch (Exception e) {
                 return equipos;
             } finally {
@@ -115,29 +111,32 @@ public class GD_Programa_E {
 
     public List<Equipo> agregaJugador(String pathname) throws Exception {
         archivo = new File(pathname);
-        //imprimeEquipos();
         if (archivo.exists()) {
             FileInputStream file = new FileInputStream(archivo);
             DataInputStream lectura = new DataInputStream(file);
             try {
                 while (true) {
                     Jugador jugador = new Jugador();
+
                     jugador.setNombre(lectura.readUTF());
                     jugador.setApellido(lectura.readUTF());
                     jugador.setCedula(lectura.readUTF());
                     jugador.setEdad(lectura.readInt());
                     jugador.setNombreDeportivo(lectura.readUTF());
                     jugador.setNumCamiseta(lectura.readInt());
+                    String nombre = lectura.readUTF();
+                    System.out.println("nombre " + nombre);
                     for (int j = 0; j < equipos.size(); j++) {
                         Equipo get = equipos.get(j);
-                        if (get.getNombre().equals(lectura.readUTF())) {
+                        if (get.getNombre().equals(nombre)) {
                             get.addJugador(jugador);
                         }
                     }
                 }
 
             } catch (Exception e) {
-                return this.equipos;
+                System.out.println("Fin...");
+                return equipos;
             } finally {
                 lectura.close();
             }
@@ -206,35 +205,43 @@ public class GD_Programa_E {
         }
     }
 
-    /*public void verificarDuplicados(String cadena) throws Exception {
-    String linea = "";
-    String palabra = "";
-    if (archivo.exists()) {
-    FileReader file = new FileReader(archivo);
-    BufferedReader lectura = new BufferedReader(file);
-    while (linea != null) {
-    linea = lectura.readLine();
-    if (linea != null) {
-    for (int i = 0; i < linea.length(); i++) {
-    char caracter = linea.charAt(i);
-    if (caracter != '|') {
-    palabra += caracter;
+    public boolean validarDupEquipo(String nombre) throws Exception {
+        FileInputStream file = new FileInputStream(archivo);
+        DataInputStream lectura = new DataInputStream(file);
+        try {
+            while (true) {
+                if (lectura.readUTF().equals(nombre)) {
+                    System.out.println("Iguales");
+                    return true;
+                }
+                lectura.readUTF();
+            }
+        } catch (Exception e) {
+            return false;
+        }
     }
-    else {
-    if (palabra.equals(cadena)) {
-    throw new Exception("Ya existe un dato registrado con los mismos datos.");
+
+    public boolean validaDupJugador(String cedula) throws FileNotFoundException {
+        FileInputStream file = new FileInputStream(archivo);
+        DataInputStream lectura = new DataInputStream(file);
+        try {
+            while (true) {
+                lectura.readUTF();
+                lectura.readUTF();
+                if (lectura.readUTF().equals(cedula)) {
+                    System.out.println("Iguales");
+                    return true;
+                }
+                lectura.readInt();
+                lectura.readUTF();
+                lectura.readInt();
+                lectura.readUTF();
+            }
+        } catch (Exception e) {
+            return false;
+        }
     }
-    palabra = "";
-    }
-    }
-    }
-    }
-    file.close();
-    }
-    else {
-    throw new Exception("El archivo no existe");
-    }
-    }*/
+
     public boolean validNumeros(String cadena) throws Exception {
         try {
             int num = Integer.parseInt(cadena);
@@ -257,10 +264,4 @@ public class GD_Programa_E {
         }
     }
 
-    private void imprimeEquipos() {
-        for (int i = 0; i < equipos.size(); i++) {
-            Equipo get = equipos.get(i);
-            System.out.println("Equipo: " + get.getNombre());
-        }
-    }
 }

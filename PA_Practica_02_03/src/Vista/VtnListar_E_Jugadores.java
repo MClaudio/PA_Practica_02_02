@@ -87,19 +87,11 @@ public class VtnListar_E_Jugadores extends JInternalFrame implements ActionListe
     private void btnBuscar() {
         try {
             gdE.listarEquipo("src/Archivos/Programa_E/Equipos.dat");
-            List<Equipo> equipos = gdE.agregaJugador("src/Archivos/Programa_E/Jugadores.dat");
-            if (equipos != null) {
-                for (int i = 0; i < equipos.size(); i++) {
-                    Equipo get = equipos.get(i);
-                    //System.out.println("Equipo: " + get.getNombre());
-
+            List<Equipo> equipo = gdE.agregaJugador("src/Archivos/Programa_E/Jugadores.dat");
+            if (equipo != null) {
+                for (int i = 0; i < equipo.size(); i++) {
+                    Equipo get = equipo.get(i);
                     if (this.equipos.getSelectedItem().equals(get.getNombre())) {
-                        
-                        for (int j = 0; j < get.getJugadores().size(); j++) {
-                            Jugador get1 = get.getJugadores().get(j);
-                            System.out.println("\tJugador: " + get1.getNombre());
-                        }
-                        
                         tlbJugadores.setModel(new VtnListar_E_JugadoresModel(get.getJugadores()));
                     }
                 }

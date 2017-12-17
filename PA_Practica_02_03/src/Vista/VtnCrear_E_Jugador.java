@@ -136,12 +136,13 @@ public class VtnCrear_E_Jugador extends JInternalFrame implements ActionListener
             if (equipos.getSelectedItem()==null) {
                 throw new Exception("La lista de equipos esta vacia deve crear un equipo.");
             }
-            //gdE.verificarDuplicados(txtCedula.getText());
+            
+            if (gdE.validaDupJugador(txtCedula.getText())) {
+                throw new Exception("El jugador ya existe en la hoja de datos..");
+            }
 
             gdE.creaJugador(txtNombre.getText(), txtApellido.getText(), txtCedula.getText(), Integer.parseInt(txtEdad.getText()), txtNombreDeportivo.getText(), Integer.parseInt(txtNumCamiseta.getText()), (String)equipos.getSelectedItem());
-            
-            agregarJugador();
-            
+
             txtNombre.setText("");
             txtApellido.setText("");
             txtCedula.setText("");
@@ -168,17 +169,6 @@ public class VtnCrear_E_Jugador extends JInternalFrame implements ActionListener
             
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
-        }
-    }
-    
-    private void agregarJugador(){
-        try {
-            gdE = new GD_Programa_E();
-            gdE.listarEquipo("src/Archivos/Programa_E/Equipos.dat");
-            List<Equipo>equipos=gdE.agregaJugador("src/Archivos/Programa_E/Jugadores.dat");
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(this, e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
-            e.printStackTrace();
         }
     }
 }
