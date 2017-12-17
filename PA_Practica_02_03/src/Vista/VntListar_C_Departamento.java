@@ -44,11 +44,11 @@ public class VntListar_C_Departamento extends JInternalFrame {
 
     public void initTable() {
         try {
-            gdC = new GD_Programa_C("src/Archivos/Programa_C/Departamento.txt");
+            gdC = new GD_Programa_C("src/Archivos/Programa_C/Departamento.dat");
 
             String[] cabezera = {"#", "Nombre Departamento", "Nombre Supervidor", "Numero Departamento", "Empleado"};
 
-            List<Departamento> doc = gdC.leerDatosDepartamento();
+            List<Departamento> doc = gdC.getListDepartamento("src/Archivos/Programa_C/Departamento.dat");
             String[][] datos = new String[doc.size()][cabezera.length];
             for (int i = 0; i < doc.size(); i++) {
                 Departamento get = doc.get(i);

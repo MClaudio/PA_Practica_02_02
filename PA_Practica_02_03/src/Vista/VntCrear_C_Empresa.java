@@ -62,10 +62,10 @@ public class VntCrear_C_Empresa extends JInternalFrame implements ActionListener
         
         getContentPane().setLayout(new FlowLayout());
         
-        gdE = new GD_Programa_C("src/Archivos/Programa_C/Departamento.txt");
+        gdE = new GD_Programa_C("src/Archivos/Programa_C/Departamento.dat");
         List<Departamento> departaments = null;
         try {
-            departaments = gdE.leerDatosDepartamento();
+            departaments = gdE.getListDepartamento("src/Archivos/Programa_C/Departamento.dat");
         } catch (Exception e) {
             
         }
@@ -189,12 +189,12 @@ public class VntCrear_C_Empresa extends JInternalFrame implements ActionListener
             if (txtNombreEmp.getText().equals("") || txtNumeroRuc.getText().equals("") || txtNumeroSocios.getText().equals("") || auxDepartamentos == departamentos.getItemAt(0)) {
                 throw new Exception("Debe llenar todos los campos.");
             }
-            departaments = gdE.leerDatosDepartamento();
-            GD_Programa_C gdC = new GD_Programa_C("src/Archivos/Programa_C/Empresa.txt");
+            departaments = gdE.getListDepartamento("src/Archivos/Programa_C/Departamento.dat");
+            GD_Programa_C gdC = new GD_Programa_C("src/Archivos/Programa_C/Empresa.dat");
             
             Departamento departament = gdC.buscarDepartamento(departaments, auxDepartamentos);
+            gdE.verificarEmpresa(gdE.getListEmpresa("src/Archivos/Programa_C/Empresa.dat"), txtNombreEmp.getText());
             gdC.crearEmpresa(txtNombreEmp.getText(), txtNumeroRuc.getText(), txtNumeroSocios.getText(), departament.getNombreDep());
-//            gdC.creaDepartamento(txtNmbreDep.getText(), txtNombreSupe.getText(), txtNumeroDep.getText(),auxempleados );
             JOptionPane.showMessageDialog(this, "Datos Guardados con exito...", "Guardar", JOptionPane.INFORMATION_MESSAGE);
         } catch (Exception e) {
             

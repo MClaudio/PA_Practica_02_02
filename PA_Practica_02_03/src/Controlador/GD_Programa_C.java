@@ -10,7 +10,12 @@ import Modelo.Programa_C.Empleado;
 import Modelo.Programa_C.Empresa;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.util.ArrayList;
@@ -36,13 +41,25 @@ public class GD_Programa_C {
 
     public void crearEmpleado(String nombreApellido, String cedula, String fehaNac, String direccion) throws Exception {
 
+        //  Empleado emp = new Empleado();
         if (archivo.exists()) {
-            FileWriter file = new FileWriter(archivo, true);
-            BufferedWriter escritura = new BufferedWriter(file);
-            escritura.append(nombreApellido + "|" + cedula + "|" + fehaNac + "|" + direccion + "|\n");
-            escritura.close();
+            FileOutputStream file = new FileOutputStream(archivo, true);
+            DataOutputStream escritura = new DataOutputStream(file);
 
-            leerDatosEmpleado();
+            try {
+
+                escritura.writeUTF(nombreApellido);
+                escritura.writeUTF(cedula);
+                escritura.writeUTF(fehaNac);
+                escritura.writeUTF(direccion);
+
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+                throw new Exception("Error al escribir el archivo.");
+            } finally {
+                escritura.close();
+
+            }
 
         } else {
             throw new Exception("Error el archivo no existe.");
@@ -50,64 +67,29 @@ public class GD_Programa_C {
         }
     }
 
-    public List<Empleado> leerDatosEmpleado() throws Exception {
-        String linea = "";
-        String palabra = "";
-        boolean datoNombreApellido = true;
-        boolean datoCedula = false;
-        boolean datofehaNac = false;
-        boolean datoDireccion = false;
+    public List<Empleado> getListEmpleado(String patch) throws Exception {
+        archivo = new File(patch);
 
-        if (archivo.exists() && archivo.isFile()) {
+        if (archivo.exists()) {
+            FileInputStream file = new FileInputStream(archivo);
+            DataInputStream lectura = new DataInputStream(file);
+            try {
 
-            FileReader file = new FileReader(archivo);
-            BufferedReader lectura = new BufferedReader(file);
-
-            while (linea != null) {
-
-                linea = lectura.readLine();
-                if (linea != null) {
+                while (true) {
                     Empleado empleado = new Empleado();
-                    for (int i = 0; i < linea.length(); i++) {
-                        char caracter = linea.charAt(i);
-                        if (caracter != '|') {
-                            palabra += caracter;
-                        } else {
-                            if (datoNombreApellido == true && !palabra.equals("")) {
-                                empleado.setNombreApellido(palabra);
-                                palabra = "";
-                                System.out.println("Nombre: " + palabra);
-                                datoNombreApellido = false;
-                                datoCedula = true;
-                            }
-                            if (datoCedula == true && !palabra.equals("")) {
-                                empleado.setCedula(palabra);
-                                palabra = "";
-                                System.out.println("Apelldo: " + palabra);
-                                datoCedula = false;
-                                datofehaNac = true;
-                            }
-                            if (datofehaNac == true && !palabra.equals("")) {
-                                empleado.setFechaNac(palabra);
-                                palabra = "";
-                                datofehaNac = false;
-                                datoDireccion = true;
-                            }
-                            if (datoDireccion == true && !palabra.equals("")) {
-                                empleado.setDireccion(palabra);
-                                palabra = "";
-                                datoDireccion = false;
-                                datoNombreApellido = true;
-                            }
-
-                            //System.out.print("[" + palabra + "]");
-                        }
-                    }
+                     empleado.setNombreApellido(lectura.readUTF());
+                    empleado.setCedula(lectura.readUTF());
+                   empleado.setFechaNac(lectura.readUTF());
+                    empleado.setDireccion(lectura.readUTF());
+                    
                     empleados.add(empleado);
                 }
+
+            } catch (Exception e) {
+                return empleados;
+            } finally {
+                lectura.close();
             }
-            file.close();
-            return empleados;
         } else {
             throw new Exception("El archivo no existe");
         }
@@ -117,164 +99,119 @@ public class GD_Programa_C {
     public void crearDepartamento(String nombreDep, String nombreSupervisor, String numeroDep, String nombEmpleado) throws Exception {
 
         if (archivo.exists()) {
-            FileWriter file = new FileWriter(archivo, true);
-            BufferedWriter escritura = new BufferedWriter(file);
-            escritura.append(nombreDep + "|" + nombreSupervisor + "|" + numeroDep + "|" + nombEmpleado + "|\n");
-            escritura.close();
+            FileOutputStream file = new FileOutputStream(archivo);
+            DataOutputStream escritura = new DataOutputStream(file);
+            try {
 
-            leerDatosEmpleado();
+                escritura.writeUTF(nombreDep);
+                escritura.writeUTF(nombreSupervisor);
+                escritura.writeUTF(numeroDep);
+                escritura.writeUTF(nombEmpleado);
 
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+                throw new Exception("Error al escribir el archivo.");
+            } finally {
+                escritura.close();
+
+            }
         } else {
             throw new Exception("Error el archivo no existe.");
 
         }
     }
 
-    public List<Departamento> leerDatosDepartamento() throws Exception {
-        String linea = "";
-        String palabra = "";
-        Empleado empleado = null;
-        boolean datonombreDep = true;
-        boolean datonombreSupervisor = false;
-        boolean datonumeroDep = false;
-        boolean datoEmpleado = false;
+    public List<Departamento> getListDepartamento(String patch) throws Exception {
 
-        if (archivo.exists() && archivo.isFile()) {
-
-            FileReader file = new FileReader(archivo);
-            BufferedReader lectura = new BufferedReader(file);
-
-            while (linea != null) {
-
-                linea = lectura.readLine();
-                if (linea != null) {
-                    Departamento departamento = new Departamento();
-                    for (int i = 0; i < linea.length(); i++) {
-                        char caracter = linea.charAt(i);
-                        if (caracter != '|') {
-                            palabra += caracter;
-                        } else {
-                            if (datonombreDep == true && !palabra.equals("")) {
-                                departamento.setNombreDep(palabra);
-                                palabra = "";
-                                System.out.println("Nombre: " + palabra);
-                                datonombreDep = false;
-                                datonombreSupervisor = true;
-                            }
-                            if (datonombreSupervisor == true && !palabra.equals("")) {
-                                departamento.setNombreSupervisor(palabra);
-                                palabra = "";
-                                System.out.println("Apelldo: " + palabra);
-                                datonombreSupervisor = false;
-                                datonumeroDep = true;
-                            }
-                            if (datonumeroDep == true && !palabra.equals("")) {
-                                departamento.setNumeroDep(palabra);
-                                palabra = "";
-                                datonumeroDep = false;
-                                datoEmpleado = true;
-                            }
-                            if (datoEmpleado == true && !palabra.equals("")) {
-                                departamento.setNomEmpleado(palabra);
-                                empleado = null;
-                                datoEmpleado = false;
-                                datonombreDep = true;
-                            }
-
-                            //System.out.print("[" + palabra + "]");
-                        }
-                    }
-                    departamentos.add(departamento);
-                }
-            }
-            file.close();
-            return departamentos;
-        } else {
-            throw new Exception("El archivo no existe");
-        }
-
-    }
-    
-      public void crearEmpresa(String nombreEmpresa, String numeroRUC, String numeroSocios, String nombreDepartamento) throws Exception {
+        archivo = new File(patch);
 
         if (archivo.exists()) {
-            FileWriter file = new FileWriter(archivo, true);
-            BufferedWriter escritura = new BufferedWriter(file);
-            escritura.append(nombreEmpresa + "|" + numeroRUC + "|" + numeroSocios + "|" + nombreDepartamento + "|\n");
-            escritura.close();
+            FileInputStream file = new FileInputStream(archivo);
+            DataInputStream lectura = new DataInputStream(file);
+            try {
 
-            leerDatosEmpleado();
-
-        } else {
-            throw new Exception("Error el archivo no existe.");
-
-        }
-    }
-
-    public List<Empresa> leerDatosEmpresas() throws Exception {
-        String linea = "";
-        String palabra = "";
-       // Empleado empleado = null;
-        boolean datonombreEmpresa = true;
-        boolean datonumeroRUC = false;
-        boolean datonumeroSocios = false;
-        boolean datonombreDepartamento = false;
-
-        if (archivo.exists() && archivo.isFile()) {
-
-            FileReader file = new FileReader(archivo);
-            BufferedReader lectura = new BufferedReader(file);
-
-            while (linea != null) {
-
-                linea = lectura.readLine();
-                if (linea != null) {
-                    Empresa empresa = new Empresa();
-                    for (int i = 0; i < linea.length(); i++) {
-                        char caracter = linea.charAt(i);
-                        if (caracter != '|') {
-                            palabra += caracter;
-                        } else {
-                            if (datonombreEmpresa == true && !palabra.equals("")) {
-                                empresa.setNombreEmpresa(palabra);
-                                palabra = "";
-                                System.out.println("Nombre Empresa: " + palabra);
-                                datonombreEmpresa = false;
-                                datonumeroRUC = true;
-                            }
-                            if (datonumeroRUC == true && !palabra.equals("")) {
-                                empresa.setNumeroRUC(palabra);
-                                palabra = "";
-                                System.out.println("Apelldo: " + palabra);
-                                datonumeroRUC = false;
-                                datonumeroSocios = true;
-                            }
-                            if (datonumeroSocios == true && !palabra.equals("")) {
-                                empresa.setNumeroSocios(palabra);
-                                palabra = "";
-                                datonumeroSocios = false;
-                                datonombreDepartamento = true;
-                            }
-                            if (datonombreDepartamento == true && !palabra.equals("")) {
-                                empresa.setNombreDepartamento(palabra);
-                                //empleado = null;
-                                datonombreDepartamento = false;
-                                datonombreEmpresa = true;
-                            }
-
-                        }
-                    }
-                    empresas.add(empresa);
+                while (true) {
+                    Departamento departamento = new Departamento();
+                    departamento.setNombreDep(lectura.readUTF());
+                    departamento.setNombreSupervisor(lectura.readUTF());
+                    departamento.setNumeroDep(lectura.readUTF());
+                    departamento.setNomEmpleado(lectura.readUTF());
+                   
+                    departamentos.add(departamento);
                 }
+
+            } catch (Exception e) {
+                return departamentos;
+            } finally {
+                lectura.close();
             }
-            file.close();
-            return empresas;
         } else {
             throw new Exception("El archivo no existe");
         }
 
     }
 
+    public void crearEmpresa(String nombreEmpresa, String numeroRUC, String numeroSocios, String nombreDepartamento) throws Exception {
+
+        if (archivo.exists()) {
+            FileOutputStream file = new FileOutputStream(archivo);
+            DataOutputStream escritura = new DataOutputStream(file);
+            
+            try{
+                escritura.writeUTF(nombreEmpresa);
+                escritura.writeUTF(numeroRUC);
+                escritura.writeUTF(numeroSocios);
+                escritura.writeUTF(nombreDepartamento);
+            
+            
+            }catch (FileNotFoundException e){
+                e.printStackTrace();
+                throw new Exception("Error al escribir el archivo.");
+            }finally{
+                escritura.close();
+            }
+        } else {
+            throw new Exception("Error el archivo no existe.");
+
+        }
+    }
+
+    public List<Empresa> getListEmpresa(String patch) throws Exception {
+        archivo = new File(patch);
+        
+        if (archivo.exists()) {
+            FileInputStream linea = new FileInputStream(archivo);
+            DataInputStream lectura = new DataInputStream(linea);
+            
+            try{
+                 while (true) {                    
+                    Empresa empresa = new Empresa();
+                    empresa.setNombreEmpresa(lectura.readUTF());
+                    empresa.setNumeroRUC(lectura.readUTF());
+                    empresa.setNumeroSocios(lectura.readUTF());
+                    empresa.setNombreDepartamento(lectura.readUTF());
+                    
+                    empresas.add(empresa);
+                }
+  
+            }catch (Exception e){
+                return empresas;
+ 
+            }finally {
+                lectura.close();
+            }
+            
+            
+        }else{
+            throw new Exception("El archivo no existe");
+        
+        
+        
+        }
+        
+       
+
+    }
 
     public String[] listDepartamentos(List<Departamento> departament) {
 
@@ -287,26 +224,26 @@ public class GD_Programa_C {
     }
 
     public String[] listEmpleados(List<Empleado> emplead) {
-        String[] empleads = new String[emplead.size() +1];
+        String[] empleads = new String[emplead.size() + 1];
         empleads[0] = "Selecionar";
-        if (empleads.length>1) {
-                  for (int i = 0; i < emplead.size(); i++) {
-                      System.out.println("Empleado "+emplead.get(i).getNombreApellido());
-            
-                 empleads[i + 1] = emplead.get(i).getNombreApellido();
+        if (empleads.length > 1) {
+            for (int i = 0; i < emplead.size(); i++) {
+                System.out.println("Empleado " + emplead.get(i).getNombreApellido());
 
-                  }
+                empleads[i + 1] = emplead.get(i).getNombreApellido();
+
+            }
         }
-  
+
         return empleads;
 
     }
 
-    public Empleado buscarEmpleado(List<Empleado> emplead,String asp) {
+    public Empleado buscarEmpleado(List<Empleado> emplead, String asp) {
 
-        for (int i = 0; i < emplead.size()&&emplead.get(i)!=null; i++) {
+        for (int i = 0; i < emplead.size() && emplead.get(i) != null; i++) {
             if (asp.equals(emplead.get(i).getNombreApellido())) {
-             
+
                 return emplead.get(i);
 
             }
@@ -315,8 +252,8 @@ public class GD_Programa_C {
         return null;
     }
 
-    public Departamento buscarDepartamento(List<Departamento> departament,String auxDepartamentos) {
-         for (int i = 0; i < departament.size(); i++) {
+    public Departamento buscarDepartamento(List<Departamento> departament, String auxDepartamentos) {
+        for (int i = 0; i < departament.size(); i++) {
             if (auxDepartamentos.equals(departament.get(i).getNombreDep())) {
                 return departament.get(i);
 
@@ -324,36 +261,66 @@ public class GD_Programa_C {
         }
 
         return null;
-        
+
     }
-    
+
     public boolean validarCedula(String cedula) throws Exception {
-		// TODO Auto-generated method stub
-		try {
-			int a = Integer.parseInt(cedula);
-		}catch(NumberFormatException e){
-			throw new Exception("Formato incorrecto, contiene caracteres");
-		}
-		if(cedula.length()!=10)
-			throw new Exception("Debe ser de 10 dígitos");
-		
-		
-	
-		return true;
+        // TODO Auto-generated method stub
+        try {
+            int a = Integer.parseInt(cedula);
+        } catch (NumberFormatException e) {
+            throw new Exception("Formato incorrecto, contiene caracteres");
+        }
+        if (cedula.length() != 10) {
+            throw new Exception("Debe ser de 10 dígitos");
+        }
+
+        return true;
+    }
+
+    public boolean verificarCedula(List<Empleado> listEmpleados, String cedula) throws Exception {
+        int n = 1;
+        if (listEmpleados.size() > 0) {
+            for (int i = 0; i < listEmpleados.size(); i++) {
+                if (cedula.equals(listEmpleados.get(i).getCedula())) {
+                    n++;
+                }
+            }
+            if (n > 1) {
+                throw new Exception("Esta cedula ya fue registrada");
+            }
+        }
+        return true;
     }
     
-    public boolean verificarCedula(List<Empleado> listEmpleados ,String cedula) throws Exception {
-		int n=1;
-		if (listEmpleados.size()>0) {
-			for (int i = 0; i < listEmpleados.size(); i++) {
-				if (cedula.equals(listEmpleados.get(i).getCedula())) {
-					n++;
-				}
-			}
-			if (n>1) {
-			throw new Exception("Esta cedula ya fue registrada");
-			}			
-		}
-                return true;
+        public boolean verificarDepartamento(List<Departamento> listDepartamentos, String nomDepar) throws Exception {
+        int n = 1;
+        if (listDepartamentos.size() > 0) {
+            for (int i = 0; i < listDepartamentos.size(); i++) {
+                if (nomDepar.equals(listDepartamentos.get(i).getNombreDep())) {
+                    n++;
+                }
+            }
+            if (n > 1) {
+                throw new Exception("Este departamento ya fue registrado");
+            }
+        }
+        return true;
+    }
+        
+        
+        public boolean verificarEmpresa(List<Empresa> listEmpresas, String nomEmpresa) throws Exception {
+        int n = 1;
+        if (listEmpresas.size() > 0) {
+            for (int i = 0; i < listEmpresas.size(); i++) {
+                if (nomEmpresa.equals(listEmpresas.get(i).getNombreEmpresa())) {
+                    n++;
+                }
+            }
+            if (n > 1) {
+                throw new Exception("Esta empresa ya fue registrada");
+            }
+        }
+        return true;
     }
 }

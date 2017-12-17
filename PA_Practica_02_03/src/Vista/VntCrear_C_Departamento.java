@@ -75,10 +75,10 @@ public class VntCrear_C_Departamento extends JInternalFrame implements ActionLis
         txtNombreSupe = new JTextField(15);
         txtNumeroDep = new JTextField(15);
         
-        gdE = new GD_Programa_C("src/Archivos/Programa_C/Empleado.txt");
+        gdE = new GD_Programa_C("src/Archivos/Programa_C/Empleado.dat");
         List<Empleado> empl = null;
         try {
-            empl = gdE.leerDatosEmpleado();
+            empl = gdE.getListEmpleado("src/Archivos/Programa_C/Empleado.dat");
         } catch (Exception e) {
             
         }
@@ -186,10 +186,10 @@ public class VntCrear_C_Departamento extends JInternalFrame implements ActionLis
             if (txtNmbreDep.getText().equals("") || txtNombreSupe.getText().equals("") || txtNumeroDep.getText().equals("") || auxempleados == empleados.getItemAt(0)) {
                 throw new Exception("Debe llenar todos los campos.");
             }
-            empl = gdE.leerDatosEmpleado();
-            GD_Programa_C gdC = new GD_Programa_C("src/Archivos/Programa_C/Departamento.txt");
+            empl = gdE.getListEmpleado("src/Archivos/Programa_C/Empleado.dat");
+            GD_Programa_C gdC = new GD_Programa_C("src/Archivos/Programa_C/Departamento.dat");
             Empleado empleado = gdC.buscarEmpleado(empl, auxempleados);
-            //gdC.crearDepartamento(txtNmbreDep.getText(), txtNombreSupe.getText(), txtNumeroDep.getText(), auxempleados);
+            gdE.verificarDepartamento(gdE.getListDepartamento("src/Archivos/Programa_C/Departamento.dat"), txtNmbreDep.getText());
             gdC.crearDepartamento(txtNmbreDep.getText(), txtNombreSupe.getText(), txtNumeroDep.getText(), empleado.getNombreApellido());
             
             JOptionPane.showMessageDialog(this, "Datos Guardados con exito...", "Guardar", JOptionPane.INFORMATION_MESSAGE);

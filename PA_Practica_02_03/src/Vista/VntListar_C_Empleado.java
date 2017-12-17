@@ -30,7 +30,7 @@ public class VntListar_C_Empleado extends JInternalFrame{
     }
 
     public void initComponets() {
-        setTitle("Listar Doctores");
+        setTitle("Listar Empleados");
         setClosable(true);
         setMaximizable(true);
         setSize(600, 300);
@@ -42,11 +42,11 @@ public class VntListar_C_Empleado extends JInternalFrame{
 
     public void initTable() {
         try {
-            gdC = new GD_Programa_C("src/Archivos/Programa_C/Empleado.txt");
+            gdC = new GD_Programa_C("src/Archivos/Programa_C/Empleado.dat");
 
             String[] cabezera = {"#", "Nombre Apellido", "Cedula", "Fecha Nacimiento", "Direccion"};
 
-            List<Empleado> empl = gdC.leerDatosEmpleado();
+            List<Empleado> empl = gdC.getListEmpleado("src/Archivos/Programa_C/Empleado.dat");
             String[][] datos = new String[empl.size()][cabezera.length];
             for (int i = 0; i < empl.size(); i++) {
                 Empleado get = empl.get(i);

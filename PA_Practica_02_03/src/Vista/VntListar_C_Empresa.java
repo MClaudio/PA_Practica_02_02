@@ -43,11 +43,11 @@ public class VntListar_C_Empresa extends JInternalFrame {
 
     public void initTable() {
         try {
-            gdC = new GD_Programa_C("src/Archivos/Programa_C/Empresa.txt");
+            gdC = new GD_Programa_C("src/Archivos/Programa_C/Empresa.dat");
 
             String[] cabezera = {"#", "Nombre Empresa", "RUC", "Numero Socios", "Departamento"};
 
-            List<Empresa> emp = gdC.leerDatosEmpresas();
+            List<Empresa> emp = gdC.getListEmpresa("src/Archivos/Programa_C/Empresa.dat");
             String[][] datos = new String[emp.size()][cabezera.length];
             for (int i = 0; i < emp.size(); i++) {
                 Empresa get = emp.get(i);

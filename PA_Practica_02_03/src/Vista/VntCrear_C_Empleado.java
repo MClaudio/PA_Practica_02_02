@@ -162,10 +162,10 @@ public class VntCrear_C_Empleado extends JInternalFrame implements ActionListene
             if (txtNombreApellido.getText().equals("") || txtCedula.getText().equals("") || txtFechaNac.getText().equals("") || txtDirecccion.getText().equals("")) {
                 throw new Exception("Debe llenar todos los campos.");
             }
-            GD_Programa_C gdC = new GD_Programa_C("src/Archivos/Programa_C/Empleado.txt");
+            GD_Programa_C gdC = new GD_Programa_C("src/Archivos/Programa_C/Empleado.dat");
 
             gdC.validarCedula(txtCedula.getText());
-            gdC.verificarCedula(gdC.leerDatosEmpleado(), txtCedula.getText());
+            gdC.verificarCedula(gdC.getListEmpleado("src/Archivos/Programa_C/Empleado.dat"), txtCedula.getText());
             gdC.crearEmpleado(txtNombreApellido.getText(), txtCedula.getText(), txtFechaNac.getText(), txtDirecccion.getText());
             JOptionPane.showMessageDialog(this, "Datos Guardados con exito...", "Guardar", JOptionPane.INFORMATION_MESSAGE);
 
