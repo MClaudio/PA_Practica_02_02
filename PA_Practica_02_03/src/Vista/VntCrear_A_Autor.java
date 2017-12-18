@@ -82,7 +82,7 @@ public class VntCrear_A_Autor extends JInternalFrame implements ActionListener {
     
     public void btnGuardar(){
         try{
-            gdA=new GD_Programa_A("src/Archivos/Programa_A/Autor.txt");
+            gdA=new GD_Programa_A("src/Archivos/Programa_A/Autor.dat");
             if (codigo.getText().equals("") || nombre.getText().equals("") || anioNacimiento.getText().equals("") || nacionalidad.getText().equals("")) {
                 throw new Exception("Porfavor rellene todos los campos");
             }

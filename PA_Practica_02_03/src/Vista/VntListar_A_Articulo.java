@@ -36,7 +36,7 @@ public class VntListar_A_Articulo extends JInternalFrame {
         try{
             gdA=new GD_Programa_A();
             String[] cabecera={"#", "Titulo", "Abstract", "Pagina de Inicio", "Pagina de Fin", "Autor"};
-            List<Articulo> ar=gdA.listarArticulo("src/Archivos/Programa_A/Articulo.txt");
+            List<Articulo> ar=gdA.listarArticulo("src/Archivos/Programa_A/Articulo.dat");
             String[][]datos=new String [ar.size()][cabecera.length];
             for(int i=0; i<ar.size();i++){
                 Articulo get=ar.get(i);
@@ -53,9 +53,9 @@ public class VntListar_A_Articulo extends JInternalFrame {
             panel.add(scroll, BorderLayout.CENTER);
             getContentPane().add(panel);
         }catch(Exception e){
-            JOptionPane.showMessageDialog(this,
+            /*JOptionPane.showMessageDialog(this,
             "Error: Algunos datos no an sido ingresados.", e.getMessage(),
-            JOptionPane.ERROR_MESSAGE); 
+            JOptionPane.ERROR_MESSAGE); */
         }
     }
 }

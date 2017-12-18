@@ -2,6 +2,7 @@ package Vista;
 
 import Controlador.GD_Programa_A;
 import Modelo.Programa_A.Articulo;
+import Modelo.Programa_A.Autor;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
@@ -73,7 +74,7 @@ public class VntCrear_A_Revista extends JInternalFrame implements ActionListener
         abc.gridx=1;
         abc.gridy=4;
         articulos=new JComboBox();
-        listarAutor();
+        listarArticulo();
         panel.add(articulos,abc);
         
         abc.gridx=1;
@@ -93,10 +94,10 @@ public class VntCrear_A_Revista extends JInternalFrame implements ActionListener
         }
     }
     
-    public void listarAutor(){
+    public void listarArticulo(){
         gdA=new GD_Programa_A();
         try{
-            List<Articulo> articulo= gdA.listarArticulo("src/Archivos/Programa_A/Articulo.txt");
+            List<Articulo> articulo= gdA.listarArticulo("src/Archivos/Programa_A/Articulo.dat");
             String [] listArticulo=new String[articulo.size()];
             for(int i=0; i<articulo.size();i++){
                 Articulo get = articulo.get(i);
@@ -112,7 +113,7 @@ public class VntCrear_A_Revista extends JInternalFrame implements ActionListener
     
     public void btnGuardar(){
         try{
-            GD_Programa_A gdA=new GD_Programa_A("src/Archivos/Programa_A/Revista.txt");
+            GD_Programa_A gdA=new GD_Programa_A("src/Archivos/Programa_A/Revista.dat");
             if(Isdn.getText().equals("") || numeroEdicion.getText().equals("") || nombre.getText().equals("") || idioma.getText().equals("")){
                 throw new Exception("Deve llenar todos los campos.");
             }

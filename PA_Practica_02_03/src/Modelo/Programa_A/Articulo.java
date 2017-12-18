@@ -10,6 +10,7 @@ public class Articulo {
     private String paginaInicio;
     private String paginaFin;	
     private Autor autores;
+    private List<Revista> revistas;
     
     public String getTitulo() {
         return titulo;
@@ -49,6 +50,10 @@ public class Articulo {
 
     public void setAutores(Autor autores) {
         this.autores = autores;
+    }
+    
+    public void addRevista(Revista revista){
+        revistas.add(revista);
     }
     
 }

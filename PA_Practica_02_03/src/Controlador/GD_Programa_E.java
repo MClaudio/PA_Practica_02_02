@@ -75,12 +75,12 @@ public class GD_Programa_E {
                 }
 
             } catch (Exception e) {
-                return equipos;
+                e.printStackTrace();
             } finally {
                 lectura.close();
             }
-        }
-        else {
+            return equipos;
+        }else {
             throw new Exception("El archivo no existe");
         }
     }

@@ -99,7 +99,7 @@ public class VntCrear_A_Articulo extends JInternalFrame implements ActionListene
     public void listarAutor() {
         gdA = new GD_Programa_A();
         try {
-            List<Autor> autores = gdA.listarAutor("src/Archivos/Programa_A/Autor.txt");
+            List<Autor> autores = gdA.listarAutor("src/Archivos/Programa_A/Autor.dat");
             String[] listAutor = new String[autores.size()];
             for (int i = 0; i < autores.size(); i++) {
                 Autor get = autores.get(i);
@@ -115,7 +115,7 @@ public class VntCrear_A_Articulo extends JInternalFrame implements ActionListene
 
     public void guardar() {
         try {
-            gdA = new GD_Programa_A("src/Archivos/Programa_A/Articulo.txt");
+            gdA = new GD_Programa_A("src/Archivos/Programa_A/Articulo.dat");
             if (titulo.getText().equals("") || abstrat.getText().equals("") || paginaInicio.getText().equals("") || paginaFin.getText().equals("")) {
                 throw new Exception("Deve llenar todos los campos.");
             }

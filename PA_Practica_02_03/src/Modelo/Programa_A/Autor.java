@@ -1,12 +1,15 @@
 
 package Modelo.Programa_A;
 
+import java.util.List;
+
 public class Autor {
 
     private String codigo;
     private String nombre;
     private String anioNacimiento;
     private String nacionalidad; 
+    private List<Articulo> articulos;
 
     public String getCodigo() {
         return codigo;
@@ -39,4 +42,8 @@ public class Autor {
     public void setNacionalidad(String nacionalidad) {
         this.nacionalidad = nacionalidad;
     }    
+    
+    public void addArticulo(Articulo articulo){
+        articulos.add(articulo);
+    }
 }

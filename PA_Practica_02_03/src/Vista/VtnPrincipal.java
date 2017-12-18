@@ -241,28 +241,6 @@ public class VtnPrincipal extends JFrame implements ActionListener {
                 listarAutor();
                 break;
 
-            //Inicio crear Menu 2 Programa 2
-            case "item1Submenu1Menu2": //caso 7
-                crearPais();
-                break;
-            case "item2Submenu1Menu2": //caso 8
-                crearProvincia();
-                break;
-            case "item3Submenu1Menu2": //caso 9
-                crearCanton();
-                break;
-
-            //Inicio listar Menu 2 Programa 2
-            case "item1Submenu2Menu2": //caso 10
-                listarPais();
-                break;
-            case "item2Submenu2Menu2": //caso 11
-                listarProvincia();
-                break;
-            case "item3Submenu2Menu2": //caso 12
-                listarCanton();
-                break;
-
             //Inicio crear Menu 3 Programa 3
             case "item1Submenu1Menu3": //caso 13
                 crearEmpleado();
@@ -408,82 +386,6 @@ public class VtnPrincipal extends JFrame implements ActionListener {
         }
     }
     
-    private void crearPais() {
-        VntCrear_B_Pais vaa = new VntCrear_B_Pais();
-        try {
-            vaa.setVisible(true);
-            vaa.setSelected(true);
-            escritorio.add(vaa);
-        } catch (Exception e) {
-            e.printStackTrace();
-            JOptionPane.showMessageDialog(this, "Error: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
-        }
-    }
-    
-    private void listarPais(){
-        VntListar_B_Pais var=new VntListar_B_Pais();
-        try{
-            var.setVisible(true);
-            var.setSelected(true);
-            escritorio.add(var);
-        }catch(Exception e){
-           e.printStackTrace();
-            JOptionPane.showMessageDialog(this, "Error: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE); 
-        }
-    }
-
-    private void crearProvincia() {
-        VntCrear_B_Provincia vaa = new VntCrear_B_Provincia();
-        try {
-            vaa.setVisible(true);
-            vaa.setSelected(true);
-            escritorio.add(vaa);
-        } catch (Exception e) {
-            e.printStackTrace();
-            JOptionPane.showMessageDialog(this, "Error: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
-        }
-    }
-    
-    private void listarProvincia(){
-        VntListar_B_Provincia var=new VntListar_B_Provincia();
-        try{
-            var.setVisible(true);
-            var.setSelected(true);
-            escritorio.add(var);
-        }catch(Exception e){
-           e.printStackTrace();
-            JOptionPane.showMessageDialog(this, "Error: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE); 
-        }
-    }
-    
-    private void crearCanton() {
-        VntCrear_B_Canton vaa = new VntCrear_B_Canton();
-        try {
-            vaa.setVisible(true);
-            vaa.setSelected(true);
-            escritorio.add(vaa);
-        } catch (Exception e) {
-            e.printStackTrace();
-            JOptionPane.showMessageDialog(this, "Error: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
-        }
-    }
-    
-    private void listarCanton(){
-        VntListar_B_Canton var=new VntListar_B_Canton();
-        try{
-            var.setVisible(true);
-            var.setSelected(true);
-            escritorio.add(var);
-        }catch(Exception e){
-           e.printStackTrace();
-            JOptionPane.showMessageDialog(this, "Error: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE); 
-        }
-    }
-    
-    
-    
-   
-
     private void crearJugador() {
         VtnCrear_E_Jugador vcj = new VtnCrear_E_Jugador();
         try {

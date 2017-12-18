@@ -7,5 +7,5 @@ public class Main {
         vtnPrincipal.setVisible(true);
         vtnPrincipal.setLocationRelativeTo(null);
     }
-    
+     
 }

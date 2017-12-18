@@ -36,7 +36,7 @@ public class VntListar_A_Revista extends JInternalFrame{
         try{
             gdA=new GD_Programa_A();
             String[] cabezera = {"#", "ISBN", "Numero de Edicion", "Nombre de Revista", "Idioma", "Articulo"};
-            List<Revista> re=gdA.listarRevista("src/Archivos/Programa_A/Revista.txt");
+            List<Revista> re=gdA.listarRevista("src/Archivos/Programa_A/Revista.dat");
             String[][] datos=new String[re.size()][cabezera.length];
             for(int i=0; i<re.size();i++){
                 Revista get=re.get(i);
@@ -53,9 +53,9 @@ public class VntListar_A_Revista extends JInternalFrame{
             panel.add(scroll, BorderLayout.CENTER);
             getContentPane().add(panel);
         }catch(Exception e){
-            JOptionPane.showMessageDialog(this,
+            /*JOptionPane.showMessageDialog(this,
             "Error: Algunos datos no an sido ingresados.", e.getMessage(),
-            JOptionPane.ERROR_MESSAGE);   
+            JOptionPane.ERROR_MESSAGE);  */ 
         }
     }
 }
