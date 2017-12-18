@@ -23,7 +23,7 @@ public class VntCrear_A_Revista extends JInternalFrame implements ActionListener
     private JTextField numeroEdicion;
     private JTextField nombre;
     private JTextField idioma;
-    private JComboBox articulos;
+    private JComboBox<String> articulos;
     private GD_Programa_A gdA;
 
     public VntCrear_A_Revista() {
@@ -35,6 +35,19 @@ public class VntCrear_A_Revista extends JInternalFrame implements ActionListener
         setClosable(true);
         setMaximizable(true);
         setSize(300, 200);
+        
+        gdA = new GD_Programa_A("src/Archivos/Programa_A/Articulo.dat");
+        List<Articulo> empl = null;
+        try {
+            empl = gdA.listarArticulo("src/Archivos/Programa_A/Articulo.dat");
+        } catch (Exception e) {
+            
+        }
+        articulos = new JComboBox<String>();
+        
+        String arreglo[] = gdA.listArticulo(empl);
+        articulos.setModel(new DefaultComboBoxModel<>(arreglo));
+        articulos.addActionListener(this);
         
         JPanel panel=new JPanel();
         panel.setLayout(new GridBagLayout());
@@ -73,8 +86,6 @@ public class VntCrear_A_Revista extends JInternalFrame implements ActionListener
         panel.add(new JLabel("Articulo"),abc);
         abc.gridx=1;
         abc.gridy=4;
-        articulos=new JComboBox();
-        listarArticulo();
         panel.add(articulos,abc);
         
         abc.gridx=1;
@@ -94,9 +105,9 @@ public class VntCrear_A_Revista extends JInternalFrame implements ActionListener
         }
     }
     
-    public void listarArticulo(){
-        gdA=new GD_Programa_A();
+    /*public void listarArticulo(){
         try{
+            gdA=new GD_Programa_A();
             List<Articulo> articulo= gdA.listarArticulo("src/Archivos/Programa_A/Articulo.dat");
             String [] listArticulo=new String[articulo.size()];
             for(int i=0; i<articulo.size();i++){
@@ -109,16 +120,23 @@ public class VntCrear_A_Revista extends JInternalFrame implements ActionListener
                     "Error: Algunos datos no an sido ingresados.", e.getMessage(),
                     JOptionPane.ERROR_MESSAGE);
         }
-    }
+    }*/
     
     public void btnGuardar(){
         try{
-            GD_Programa_A gdA=new GD_Programa_A("src/Archivos/Programa_A/Revista.dat");
+            gdA=new GD_Programa_A("src/Archivos/Programa_A/Revista.dat");
             if(Isdn.getText().equals("") || numeroEdicion.getText().equals("") || nombre.getText().equals("") || idioma.getText().equals("")){
                 throw new Exception("Deve llenar todos los campos.");
             }
+            if(articulos.getSelectedItem()==null){
+                throw new Exception("La lista de autores esta vacia");
+            }
             gdA.agragarRevista(Isdn.getText(), numeroEdicion.getText(), nombre.getText(), idioma.getText(), (String) articulos.getSelectedItem());
             JOptionPane.showMessageDialog(this,"Datos Guardados", "Guardar", JOptionPane.INFORMATION_MESSAGE);
+            Isdn.setText("");
+            numeroEdicion.setText("");
+            nombre.setText("");
+            idioma.setText("");
         }catch(Exception e){
             JOptionPane.showMessageDialog(this, e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }

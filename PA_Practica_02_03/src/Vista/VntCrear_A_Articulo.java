@@ -22,7 +22,7 @@ public class VntCrear_A_Articulo extends JInternalFrame implements ActionListene
     private JTextField abstrat;
     private JTextField paginaInicio;
     private JTextField paginaFin;
-    private JComboBox autor;
+    private JComboBox<String> autor;
     private GD_Programa_A gdA;
 
     public VntCrear_A_Articulo() {
@@ -30,10 +30,22 @@ public class VntCrear_A_Articulo extends JInternalFrame implements ActionListene
     }
 
     private void implement() {
-        setTitle("");
+        setTitle("Articulo");
         setClosable(true);
         setMaximizable(true);
         setSize(400, 200);
+        
+        gdA=new GD_Programa_A("src/Archivos/Programa_A/Autor.dat");
+        List<Autor> gbc=null;
+        try{
+            gbc=gdA.listarAutor("src/Archivos/Programa_A/Autor.dat");
+        }catch(Exception e){
+            
+        }
+        autor = new JComboBox<String>();
+        String arreglo[]=gdA.listAutor(gbc);
+        autor.setModel(new DefaultComboBoxModel<>(arreglo));
+        autor.addActionListener(this);
 
         JPanel panel = new JPanel();
         panel.setLayout(new GridBagLayout());
@@ -72,8 +84,7 @@ public class VntCrear_A_Articulo extends JInternalFrame implements ActionListene
         panel.add(new JLabel("Autor"), abc);
         abc.gridx = 1;
         abc.gridy = 4;
-        autor = new JComboBox();
-        listarAutor();
+        //listarAutor();
         panel.add(autor, abc);
 
         abc.gridx = 1;
@@ -88,15 +99,12 @@ public class VntCrear_A_Articulo extends JInternalFrame implements ActionListene
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        String comando = e.getActionCommand();
-        switch (comando) {
-            case "btnGuardar":
-                guardar();
-                break;
+        if (e.getActionCommand().equals("btnGuardar")) {
+            guardar();
         }
     }
 
-    public void listarAutor() {
+    /*public void listarAutor() {
         gdA = new GD_Programa_A();
         try {
             List<Autor> autores = gdA.listarAutor("src/Archivos/Programa_A/Autor.dat");
@@ -111,7 +119,7 @@ public class VntCrear_A_Articulo extends JInternalFrame implements ActionListene
                     "Error: Algunos datos no an sido ingresados.", e.getMessage(),
                     JOptionPane.ERROR_MESSAGE);
         }
-    }
+    }*/
 
     public void guardar() {
         try {
@@ -124,6 +132,10 @@ public class VntCrear_A_Articulo extends JInternalFrame implements ActionListene
             }
             gdA.agregarArticulo(titulo.getText(), abstrat.getText(), paginaInicio.getText(), paginaFin.getText(), (String) autor.getSelectedItem());
             JOptionPane.showMessageDialog(this, "Datos Guardados", "Guardar", JOptionPane.INFORMATION_MESSAGE);
+            titulo.setText("");
+            abstrat.setText("");
+            paginaInicio.setText("");
+            paginaFin.setText("");
         } catch (Exception e) {
 
             JOptionPane.showMessageDialog(this, e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);

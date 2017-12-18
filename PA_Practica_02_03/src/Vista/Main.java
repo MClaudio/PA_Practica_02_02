@@ -6,6 +6,6 @@ public class Main {
         VtnPrincipal vtnPrincipal=new VtnPrincipal();
         vtnPrincipal.setVisible(true);
         vtnPrincipal.setLocationRelativeTo(null);
-    }
+    } 
      
 }

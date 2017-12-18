@@ -14,7 +14,7 @@ import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.ArrayList; 
+import java.util.ArrayList;
 import java.util.List;
 
 public class GD_Programa_A {
@@ -22,74 +22,79 @@ public class GD_Programa_A {
     private List<Revista> revistas;
     private List<Articulo> articulos;
     private List<Autor> autores;
-    
+
     private File archivo;
 
-    public GD_Programa_A() {
+    public GD_Programa_A(String pathname) {
         revistas = new ArrayList<Revista>();
         articulos = new ArrayList<Articulo>();
         autores = new ArrayList<Autor>();
-    }
-
-    public GD_Programa_A(String pathname) {
         archivo = new File(pathname);
     }
 
     public void agragarRevista(String isdn, String numeroEdicion, String nombre, String idioma, String articulo) throws IOException, Exception {
         //System.out.println(archivo.getAbsolutePath());
         //El getAbsolutePath: este metodo de ruta devuelve la ruta absoluta del archivo
-        try {
-            if (archivo.exists()) {
-                FileOutputStream file = new FileOutputStream(archivo, true);
-                DataOutputStream escritura = new DataOutputStream(file);
+        if (archivo.exists()) {
+            FileOutputStream file = new FileOutputStream(archivo, true);
+            DataOutputStream escritura = new DataOutputStream(file);
+            try {
                 escritura.writeUTF(isdn);
                 escritura.writeUTF(numeroEdicion);
-                escritura.writeUTF(nombre); 
+                escritura.writeUTF(nombre);
                 escritura.writeUTF(idioma);
                 escritura.writeUTF(articulo);
+            } catch (FileNotFoundException e) {
+                throw new Exception("Error al escribir el archivo.");
+                
+            }finally{
                 escritura.close();
-            } else {
-                throw new Exception("Error el archivo no existe");
             }
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
+        } else {
+            throw new Exception("Error el archivo no existe");
         }
     }
 
     public void agregarArticulo(String titulo, String abstact, String paginaInicio, String paginaFin, String autor) throws IOException, Exception {
         //System.out.println(archivo.getAbsolutePath());
-        try {
-            if (archivo.exists()) {
-                FileOutputStream file = new FileOutputStream(archivo, true);
-                DataOutputStream escritura = new DataOutputStream(file);
+        if (archivo.exists()) {
+            FileOutputStream file = new FileOutputStream(archivo, true);
+            DataOutputStream escritura = new DataOutputStream(file);
+            try {
                 escritura.writeUTF(titulo);
                 escritura.writeUTF(abstact);
                 escritura.writeUTF(paginaInicio);
                 escritura.writeUTF(paginaFin);
                 escritura.writeUTF(autor);
+            } catch (FileNotFoundException e) {
+                throw new Exception("Error al escribir el archivo.");
+            } finally {
                 escritura.close();
             }
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
+        }else{
+            throw new Exception("Error el archivo no existe.");
         }
     }
 
     public void agregarAutor(String codigo, String nombre, String anioNacimiento, String nacionalidad) throws IOException, Exception {
         // System.out.println(archivo.getAbsolutePath());
-        try {
-            if (archivo.exists()) {
-                FileOutputStream file = new FileOutputStream(archivo, true);
-                DataOutputStream escritura = new DataOutputStream(file);
+        if (archivo.exists()) {
+            FileOutputStream file = new FileOutputStream(archivo, true);
+            DataOutputStream escritura = new DataOutputStream(file);
+            try {
+
                 escritura.writeUTF(codigo);
                 escritura.writeUTF(nombre);
                 escritura.writeUTF(anioNacimiento);
                 escritura.writeUTF(nacionalidad);
+
+            } catch (FileNotFoundException e) {
+                throw new Exception("Error al escribir el archivo.");
+            } finally {
                 escritura.close();
-            } else {
-                throw new Exception("El archivo no existe");
             }
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
+        } else {
+            throw new Exception("El archivo no existe");
         }
     }
 
@@ -98,27 +103,19 @@ public class GD_Programa_A {
         if (archivo.exists()) {
             FileInputStream file = new FileInputStream(archivo);
             DataInputStream lectura = new DataInputStream(file);
-            try{
-                while(true){
-                    Revista revista=new Revista();
+            try {
+                while (true) {
+                    Revista revista = new Revista();
                     revista.setIsdn(lectura.readUTF());
                     revista.setNumeroEdicion(lectura.readUTF());
                     revista.setNombre(lectura.readUTF());
                     revista.setIdioma(lectura.readUTF());
-                    String titulo=lectura.readUTF();
-                    System.out.println("Titulo"+titulo);
-                    for(int j=0; j<articulos.size();j++){
-                        Articulo get=articulos.get(j);
-                        if(get.getTitulo().equals(titulo)){
-                            get.addRevista(revista);
-                        }
-                    }
+                    revistas.add(revista);
                 }
-            }catch(Exception e){
-                e.printStackTrace();
+            } catch (Exception e) {
                 return revistas;
-            }finally{
-            lectura.close();
+            } finally {
+                lectura.close();
             }
         } else {
             throw new Exception("El archivo no existe.");
@@ -127,28 +124,21 @@ public class GD_Programa_A {
 
     public List<Articulo> listarArticulo(String pathname) throws Exception {
         archivo = new File(pathname);
+        
         if (archivo.exists()) {
-            FileInputStream file =new FileInputStream(archivo);
+            FileInputStream file = new FileInputStream(archivo);
             DataInputStream lectura = new DataInputStream(file);
             try {
-                String ruta="src/Archivos/Programa_A/Articulo.dat";
-                file=new  FileInputStream(ruta);
-                lectura=new DataInputStream(file);
-                while(true){
-                    Articulo articulo=new Articulo();
+                while (true) {
+                    Articulo articulo = new Articulo();
                     articulo.setTitulo(lectura.readUTF());
                     articulo.setAbstrac(lectura.readUTF());
                     articulo.setPaginaInicio(lectura.readUTF());
                     articulo.setPaginaFin(lectura.readUTF());
-                    for(int j = 0; j < autores.size(); j++){
-                        Autor get=autores.get(j);
-                        if(get.getNombre().equals(lectura.readUTF())){
-                            get.addArticulo(articulo);
-                        }
-                    }
+                    
+                    articulos.add(articulo);
                 }
             } catch (Exception e) {
-                e.printStackTrace();
                 return articulos;
             } finally {
                 lectura.close();
@@ -157,7 +147,7 @@ public class GD_Programa_A {
             throw new Exception("El archivo no existe");
         }
     }
- 
+
     public List<Autor> listarAutor(String pathname) throws Exception {
         archivo = new File(pathname);
 
@@ -165,22 +155,42 @@ public class GD_Programa_A {
             FileInputStream file = new FileInputStream(archivo);
             DataInputStream lectura = new DataInputStream(file);
             try {
-                while(true){
-                    Autor autor=new Autor();
-                    autor.setCodigo(lectura.readUTF());
-                    autor.setNombre(lectura.readUTF());
-                    autor.setCodigo(lectura.readUTF());
-                    autor.setNacionalidad(lectura.readUTF());
-                    autores.add(autor);
+                while (true) {
+                    Autor autor123 = new Autor();
+                    autor123.setCodigo(lectura.readUTF());
+                    autor123.setNombre(lectura.readUTF());
+                    autor123.setAnioNacimiento(lectura.readUTF());
+                    autor123.setNacionalidad(lectura.readUTF());
+                    autores.add(autor123);
                 }
             } catch (Exception e) {
-                e.printStackTrace();
+                return autores;
             } finally {
                 lectura.close();
             }
-            return autores;
+            
         } else {
             throw new Exception("El archivo no existe");
         }
+    }
+    
+    public String[] listAutor(List<Autor> departament) {
+
+        String[] departaments = new String[departament.size() + 1];
+        departaments[0] = "Selecionar";
+        for (int i = 0; i < departament.size(); i++) {
+            departaments[i + 1] = departament.get(i).getNombre();
+        }
+        return departaments;
+    }
+    
+    public String[] listArticulo(List<Articulo> departament) {
+
+        String[] departaments = new String[departament.size() + 1];
+        departaments[0] = "Selecionar";
+        for (int i = 0; i < departament.size(); i++) {
+            departaments[i + 1] = departament.get(i).getTitulo();
+        }
+        return departaments;
     }
 }

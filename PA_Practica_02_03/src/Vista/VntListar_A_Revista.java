@@ -34,7 +34,7 @@ public class VntListar_A_Revista extends JInternalFrame{
     
     public void initTable(){
         try{
-            gdA=new GD_Programa_A();
+            gdA=new GD_Programa_A("src/Archivos/Programa_A/Revista.dat");
             String[] cabezera = {"#", "ISBN", "Numero de Edicion", "Nombre de Revista", "Idioma", "Articulo"};
             List<Revista> re=gdA.listarRevista("src/Archivos/Programa_A/Revista.dat");
             String[][] datos=new String[re.size()][cabezera.length];

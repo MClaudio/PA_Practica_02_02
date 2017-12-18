@@ -34,7 +34,7 @@ public class VntListar_A_Autor extends JInternalFrame {
     
     public void initTable(){
         try{
-            gdA=new GD_Programa_A();
+            gdA=new GD_Programa_A("src/Archivos/Programa_A/Autor.dat");
             String[] cabezera = {"#", "Codigo", "Nombre del Autor", "Año de Nacimiento", "Nacionalidad"};
             List<Autor> re=gdA.listarAutor("src/Archivos/Programa_A/Autor.dat");
             String[][] datos=new String[re.size()][cabezera.length];

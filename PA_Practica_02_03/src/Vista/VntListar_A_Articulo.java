@@ -34,7 +34,7 @@ public class VntListar_A_Articulo extends JInternalFrame {
     
     public void initTable(){
         try{
-            gdA=new GD_Programa_A();
+            gdA=new GD_Programa_A("src/Archivos/Programa_A/Articulo.dat");
             String[] cabecera={"#", "Titulo", "Abstract", "Pagina de Inicio", "Pagina de Fin", "Autor"};
             List<Articulo> ar=gdA.listarArticulo("src/Archivos/Programa_A/Articulo.dat");
             String[][]datos=new String [ar.size()][cabecera.length];
